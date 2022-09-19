@@ -1,25 +1,69 @@
+import { Col, Row, Typography, Form, Button, Input } from "antd";
+import * as BitGo from "bitgo";
 import React from "react";
-import { Link } from "react-router-dom";
-import Package from "../../../package.json";
-import logo from "../Landing/logo.svg";
+import { RoundedCard } from "../../components/Shared/RoundedCard";
+import { AppLayoutWrapper } from "../../components/UI/AppLayoutWrapper";
 
-export const HomePage: React.FunctionComponent = () => {
+const { Title } = Typography;
+const { TextArea } = Input;
+
+const Home: React.FunctionComponent = () => {
+  const [form] = Form.useForm();
+  console.log(form);
+  const bitgo = new BitGo.BitGo({ env: "test" });
+  console.log(bitgo);
+
   return (
     <>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/views/Home/Home.tsx</code> and save to reload, or try out a <Link to="/">route</Link>
-          </p>
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
-          <p style={{ fontSize: "10pt" }}>
-            Build v{Package.version}-{process.env.REACT_APP_COMMIT_REF}
-          </p>
-        </header>
-      </div>
+      <Row>
+        <Col md={24}>
+          <Title data-cy="home-title" level={3}>
+            Home
+          </Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={24}>
+          <RoundedCard>
+            <Row>
+              <Col md={14}>
+                <Title
+                  level={4}
+                  style={{
+                    paddingBottom: "8px",
+                  }}
+                >
+                  Decrypt Wallet
+                </Title>
+
+                <Row>
+                  <Col>
+                    {" "}
+                    <Form form={form} layout="vertical">
+                      <Form.Item label="Encrypted Private Key">
+                        <TextArea
+                          rows={6}
+                          placeholder='Should look like {"iv":"XXXXXXXX==","v":1,"iter":10000,"ks":256,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"abcdefGH=","ct":"XXXXX"}'
+                        />
+                      </Form.Item>
+                      <Form.Item label="Encryption Password">
+                        <Input.Password placeholder="Your password used to encrypt the above private key." />
+                      </Form.Item>
+                      <Form.Item>
+                        <Button type="primary">Submit</Button>
+                      </Form.Item>
+                    </Form>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </RoundedCard>
+        </Col>
+      </Row>
     </>
   );
+};
+
+export const HomePage: React.FunctionComponent = () => {
+  return <AppLayoutWrapper component={Home} />;
 };
