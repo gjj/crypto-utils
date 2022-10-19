@@ -32,6 +32,13 @@ export const NavbarSide: React.FunctionComponent = () => {
             </Row>
           </Link>
         </Menu.Item>
+        <Menu.Item data-cy="navbar-eth-signer" key="/eth-signer">
+          <Link to="/eth-signer">
+            <Row>
+              <Col>Ethereum Signer</Col>
+            </Row>
+          </Link>
+        </Menu.Item>
       </Menu>
     </Sider>
   );
