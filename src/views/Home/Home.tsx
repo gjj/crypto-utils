@@ -1,6 +1,6 @@
 import { Col, Row, Typography, Form, Button, Input, Card } from "antd";
 import React, { useState } from "react";
-import * as SJCL from "sjcl";
+// import * as SJCL from "sjcl";
 import { RoundedCard } from "../../components/Shared/RoundedCard";
 import { AppLayoutWrapper } from "../../components/UI/AppLayoutWrapper";
 
@@ -19,8 +19,9 @@ const Home: React.FunctionComponent = () => {
   const onFinish = (values: DecryptFormFields): void => {
     if (values?.privateKey && values?.password) {
       console.log(JSON.parse(values.privateKey));
-      const result = SJCL.decrypt(values?.password, values.privateKey);
-      setPrivateKey(result);
+      // const result = SJCL.decrypt(values?.password, values.privateKey);
+      // setPrivateKey(result);
+      setPrivateKey("");
     }
   };
 
