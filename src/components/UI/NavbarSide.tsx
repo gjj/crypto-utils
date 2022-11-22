@@ -39,6 +39,13 @@ export const NavbarSide: React.FunctionComponent = () => {
             </Row>
           </Link>
         </Menu.Item>
+        <Menu.Item data-cy="navbar-hd" key="/hd">
+          <Link to="/eth-signer">
+            <Row>
+              <Col>HD Wallet</Col>
+            </Row>
+          </Link>
+        </Menu.Item>
       </Menu>
     </Sider>
   );

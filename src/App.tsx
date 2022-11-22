@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./views/Home/Home";
-import { Demo } from "./views/Demo/Demo";
+import { HDWalletPage } from "./views/HDWallet/HDWallet";
 
 
 const AppRouter = () => {
@@ -10,7 +10,9 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/alpha" element={<Demo />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/hd" element={<HDWalletPage />} />
+
       </Routes>
     </BrowserRouter>
   );

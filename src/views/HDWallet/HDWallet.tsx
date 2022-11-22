@@ -1,6 +1,6 @@
 import { Col, Row, Typography, Form, Button, Input, Card } from "antd";
+import { ethers } from "ethers";
 import React, { useState } from "react";
-import * as SJCL from "sjcl";
 import { RoundedCard } from "../../components/Shared/RoundedCard";
 import { AppLayoutWrapper } from "../../components/UI/AppLayoutWrapper";
 
@@ -8,20 +8,18 @@ const { Title } = Typography;
 const { TextArea } = Input;
 
 interface DecryptFormFields {
-  privateKey?: string;
-  password?: string;
+  extendedKey?: string;
+  path?: string;
 }
 
-const Home: React.FunctionComponent = () => {
+const HDWallet: React.FunctionComponent = () => {
   const [form] = Form.useForm();
-  const [privateKey, setPrivateKey] = useState("");
+  const [address, setAddress] = useState("");
 
   const onFinish = (values: DecryptFormFields): void => {
-    if (values?.privateKey && values?.password) {
-      console.log(JSON.parse(values.privateKey));
-      const result = SJCL.decrypt(values?.password, values.privateKey);
-      setPrivateKey(result);
-      // setPrivateKey("");
+    if (values?.extendedKey && values?.path) {
+      const hdnode = ethers.utils.HDNode.fromExtendedKey(values?.extendedKey);
+      setAddress(hdnode.derivePath(values?.path).address);
     }
   };
 
@@ -30,7 +28,7 @@ const Home: React.FunctionComponent = () => {
       <Row>
         <Col md={24}>
           <Title data-cy="home-title" level={3}>
-            Home
+            HD Wallet Derivation
           </Title>
         </Col>
       </Row>
@@ -53,21 +51,21 @@ const Home: React.FunctionComponent = () => {
                     {" "}
                     <Form form={form} layout="vertical" onFinish={onFinish}>
                       <Form.Item
-                        label="Encrypted Private Key"
-                        name="privateKey"
+                        label="Extended Key"
+                        name="extendedKey"
                         rules={[{ required: true, message: "This field is required" }]}
                       >
                         <TextArea
                           rows={6}
-                          placeholder='Should look like {"iv":"XXXXXXXX==","v":1,"iter":10000,"ks":256,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"abcdefGH=","ct":"XXXXX"}'
+                          placeholder='Should look like xpub661MyMwAqRbcEmZuXRjDmQo99aryPSv37cEF8AMLhHyVrWMub4N4TYeQewPMjWGhEetfkxkfw4MTjS1VQQZQpgsxkLE9FbwJvRi6YL7JKRK'
                         />
                       </Form.Item>
                       <Form.Item
-                        label="Encryption Password"
-                        name="password"
+                        label="Path"
+                        name="path"
                         rules={[{ required: true, message: "This field is required" }]}
                       >
-                        <Input.Password placeholder="Your password used to encrypt the above private key." />
+                        <Input placeholder="Derivation path, e.g. m" />
                       </Form.Item>
                       <Form.Item>
                         <Button type="primary" htmlType="submit" size="large">
@@ -77,8 +75,8 @@ const Home: React.FunctionComponent = () => {
                     </Form>
                   </Col>
                   <Col span={12}>
-                    <Card title="Decrypted Private Key" bordered={false} style={{ width: 300 }}>
-                      <p>{privateKey}</p>
+                    <Card title="Derived Public Key" bordered={false} style={{ width: 300 }}>
+                      <p>{address}</p>
                     </Card>
                   </Col>
                 </Row>
@@ -91,6 +89,6 @@ const Home: React.FunctionComponent = () => {
   );
 };
 
-export const HomePage: React.FunctionComponent = () => {
-  return <AppLayoutWrapper component={Home} />;
+export const HDWalletPage: React.FunctionComponent = () => {
+  return <AppLayoutWrapper component={HDWallet} />;
 };
