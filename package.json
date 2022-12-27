@@ -13,7 +13,6 @@
     "@types/react-dom": "^17.0.14",
     "@types/sjcl": "^1.0.30",
     "antd": "^4.23.2",
-    "crypto-browserify": "^3.12.0",
     "ethers": "^5.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -39,7 +38,11 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "git-cz": "^4.8.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "crypto": "npm:crypto-browserify@3.12.0",
+    "buffer": "npm:buffer@6.0.3",
+    "stream": "npm:stream-browserify@3.0.0",
+    "util": "npm:util@0.12.5"
   },
   "scripts": {
     "start": "REACT_APP_COMMIT_REF=$(git rev-parse --short HEAD) npm-run-all -p start:*",

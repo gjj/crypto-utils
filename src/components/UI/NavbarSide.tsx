@@ -40,7 +40,7 @@ export const NavbarSide: React.FunctionComponent = () => {
           </Link>
         </Menu.Item>
         <Menu.Item data-cy="navbar-hd" key="/hd">
-          <Link to="/eth-signer">
+          <Link to="/hd">
             <Row>
               <Col>HD Wallet</Col>
             </Row>
